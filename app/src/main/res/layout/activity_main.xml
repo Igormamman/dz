@@ -6,14 +6,7 @@
     tools:context=".MainActivity">
 
     <FrameLayout
-        android:id="@+id/mainFrag"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
-
-    <FrameLayout
-        android:id="@+id/secondFrag"
+        android:id="@+id/Frag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"

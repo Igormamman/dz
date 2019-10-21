@@ -3,6 +3,7 @@ package com.example.dz;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.icu.text.Transliterator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,19 +64,20 @@ public class first_frag extends Fragment {
         Bundle args = getArguments();
         if(Adapt == null)
         { Adapt = new dzAdapter();
-        if(savedInstanceState != null)
-        { Adapt.setData(savedInstanceState.getInt(ITEMCOUNT));}
-        else if(args != null)
-        {   Adapt.setData(args.getInt(ITEMCOUNT));}
+            if(savedInstanceState != null)
+            { Adapt.setData(savedInstanceState.getInt(ITEMCOUNT));}
+            else if(args != null)
+            {   Adapt.setData(args.getInt(ITEMCOUNT));}
         }
 
 
         RecyclerView recyclerView = view.findViewById(R.id.arr);
+
         int columns=getResources().getBoolean(R.bool.isHorizontal)?4:3;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),columns));
         recyclerView.setAdapter(Adapt);
         Button button = view.findViewById(R.id.clickable);
-        View.OnClickListener v = v1 -> {Adapt.number1.add(Adapt.number1.size()+1);COUNT++;Adapt.notifyDataSetChanged();};
+        View.OnClickListener v = v1 -> {Adapt.number1.add(Adapt.number1.size()+1);COUNT++;Adapt.notifyItemInserted(Adapt.number1.size()+1);};
         button.setOnClickListener(v);
 
     }
@@ -101,7 +103,7 @@ public class first_frag extends Fragment {
 
     class dzAdapter extends RecyclerView.Adapter<dzViewHolder>
     {
-       final ArrayList<Integer> number1;
+        final ArrayList<Integer> number1;
         private dzAdapter(){ number1=new ArrayList<>(); }
 
         @NonNull
@@ -121,11 +123,11 @@ public class first_frag extends Fragment {
 
 
         void setData(int size) {
-            for (int i = 1; i <= size; i++)
+            for (int i = 1; i <= size; i++) {
                 number1.add(i);
-            notifyDataSetChanged();
+                notifyItemInserted(i);
+            }
         }
-
 
         @Override
         public int getItemCount() {
